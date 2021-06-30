@@ -20,19 +20,19 @@ class RequestsTestSuite(unittest.TestCase):
 		self.assertRaises(ValueError, requests.get, 'hiwpefhipowhefopw')
 
 	def test_HTTP_200_OK_GET(self):
-		r = requests.get('http://google.com')
+		r = requests.get('http://baidu.com')
 		self.assertEqual(r.status_code, 200)
 
 	def test_HTTPS_200_OK_GET(self):
-		r = requests.get('https://google.com')
+		r = requests.get('https://baidu.com')
 		self.assertEqual(r.status_code, 200)
 
 	def test_HTTP_200_OK_HEAD(self):
-		r = requests.head('http://google.com')
+		r = requests.head('http://baidu.com')
 		self.assertEqual(r.status_code, 200)
 
 	def test_HTTPS_200_OK_HEAD(self):
-		r = requests.head('https://google.com')
+		r = requests.head('https://baidu.com')
 		self.assertEqual(r.status_code, 200)
 
 	def test_AUTH_HTTPS_200_OK_GET(self):
