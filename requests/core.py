@@ -95,7 +95,7 @@ class Request(object):
 
 			authr.add_password(None, self.url, self.auth.username, self.auth.password)
 			handler = urllib2.HTTPBasicAuthHandler(authr)
-			opener = urllib2.build_opener(handler)
+			opener = urllib2.build_opener(handler)		# 遍历所有的Handler，用传入的handler替换掉默认的Handler，如果不在默认的Handler中，则加到Handler的列表中去
 
 			# use the opener to fetch a URL
 			return opener.open
