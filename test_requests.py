@@ -2,12 +2,27 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-
 import requests
+import thread
+
+from tests.testserver.test_server import run_server_with_auth
 
 
 class RequestsTestSuite(unittest.TestCase):
 	"""Requests test cases."""
+	
+	@classmethod
+	def setUpClass(cls):
+		cls.user = "user"
+		cls.password = "password"
+		cls.httpd = run_server_with_auth(user=cls.user, password=cls.password)
+		sa = cls.httpd.socket.getsockname()
+		cls.host = "http://localhost:{}".format(sa[1])
+		cls.t = thread.start_new(cls.httpd.serve_forever, ())
+	
+	@classmethod
+	def tearDownClass(cls):
+		cls.httpd.shutdown()
 	
 	def setUp(self):
 		pass
@@ -36,8 +51,8 @@ class RequestsTestSuite(unittest.TestCase):
 		self.assertEqual(r.status_code, 200)
 
 	def test_AUTH_HTTPS_200_OK_GET(self):
-		auth = requests.AuthObject('requeststest', 'requeststest')
-		url = 'https://convore.com/api/account/verify.json'
+		auth = requests.AuthObject(self.user, self.password)
+		url = self.host
 		r = requests.get(url, auth=auth)
 
 		self.assertEqual(r.status_code, 200)
