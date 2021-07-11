@@ -49,7 +49,7 @@ class AuthHandler(SimpleHTTPRequestHandler):
             pass
     
 
-def run_server_with_auth(port=0, user="user", password="password"):
+def auth_server_d(port=0, user="user", password="password"):
     global key
     key = base64.b64encode("{}:{}".format(user, password))
 
@@ -63,7 +63,7 @@ def run_server_with_auth(port=0, user="user", password="password"):
 
 
 if __name__ == '__main__':
-    httpd = run_server_with_auth(0, 'user', '123456')
+    httpd = auth_server_d(0, 'user', '123456')
     sa = httpd.socket.getsockname()
     print "serving on {}:{}".format(sa[0], sa[1])
     t = thread.start_new(httpd.serve_forever, ())

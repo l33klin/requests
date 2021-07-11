@@ -1,3 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .core import *
+import packages
+from core import *
+
+from core import __version__
